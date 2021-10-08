@@ -135,8 +135,9 @@ objective: After running app locally, Get all stock tickers from Engergy sector 
 
 
 
-Deploy
+Deploy to Heroku
 --------------
-1. Heroku was used to deploy this app. Remember to specify which python version you are using by creating a `runtime.txt` file<br>
+1. Create a requirements file that lists all required modules<br> inside project folder run this command: `pip3 freeze > requirements.txt`
+2. Remember to specify which python version you are using by creating a runtime.txt file `touch runtime.txt`
 Heroku will need this file.<br> <i>file is both case and space sensitive, use this format: `python-3.9.7`</i>
-2. Create a Procfile <br> `touch Procfile` <br> type the following:  `web: uvicorn api:app --host=0.0.0.0 --port=${Port:-5000}`
+3. Create a Procfile <br> `touch Procfile` <br> type the following:  `web: uvicorn api:app --host=0.0.0.0 --port=${Port:-5000}`
