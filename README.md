@@ -57,7 +57,7 @@ check code output for specified port.
 
 <br>
 <table style="background-color: #38A3A5", "color: #fff">
-    <th>Sector Ids</th>
+    <th>Sector Id(s)</th>
             <tr>
                 <td>
                 financials
@@ -137,5 +137,6 @@ objective: After running app locally, Get all stock tickers from Engergy sector 
 
 Deploy
 --------------
-Heroku was used to deploy this app. Remember to specificy python version by creating a `runtime.txt` file with the <br>
-version of python you are using. Heroku will need this file.
+1. Heroku was used to deploy this app. Remember to specify which python version you are using by creating a `runtime.txt` file<br>
+Heroku will need this file.<br> <i>file is both case and space sensitive, use this format: `python-3.9.7`</i>
+2. Create a Procfile <br> `touch Procfile` <br> type the following:  `web: uvicorn api:app --host=0.0.0.0 --port=${Port:-5000}`
