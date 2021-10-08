@@ -140,4 +140,11 @@ Deploy to Heroku
 1. Create a requirements file that lists all required modules<br> inside project folder run this command: `pip3 freeze > requirements.txt`
 2. Remember to specify which python version you are using by creating a runtime.txt file `touch runtime.txt`
 Heroku will need this file.<br> <i>file is both case and space sensitive, use this format: `python-3.9.7`</i>
-3. Create a Procfile <br> `touch Procfile` <br> type the following:  `web: uvicorn api:app --host=0.0.0.0 --port=${Port:-5000}`
+3. Create a Procfile <br> `touch Procfile` <br> type the following:  `web: uvicorn api:app --host=0.0.0.0 --port=${PORT:-5000}`
+
+<br>
+<center>
+<button style="font-size: 30px; margin-top:50px; border-radius:5px;">
+<a style="text-decoration: none; color: steelblue" href="https://stock-tickers-api.herokuapp.com/">view site</a>
+</button>
+</center>
