@@ -1,0 +1,24 @@
+<html>
+    <head>
+        <title>Home</title>
+        <link href="{{ url_for('static', path='/styles.css') }}" rel="stylesheet">
+    </head>
+    <body>
+        <img src="{{ url_for('static', path='/fastapi.png') }}" alt="FastAPI">
+        <h1>Get S&P 500 Stock Tickers</h1>
+        <div class="box">
+            <li><a href="https://stock-tickers-api.herokuapp.com/sectors">Get all Sector names</a></li>
+            <li><a href="https://stock-tickers-api.herokuapp.com/get-tickers/energy">Get Energy Tickers</a></li>
+            <li><a href="https://stock-tickers-api.herokuapp.com/get-tickers/technology">Get Technology Tickers</a></li>
+            <li><a href="https://stock-tickers-api.herokuapp.com/get-tickers/financial">Get financial Services Tickers</a></li>
+            <li><a href="https://stock-tickers-api.herokuapp.com/get-tickers/consumer-cyclical">Get Consumer Cyclical Tickers</a></li>
+            <li><a href="https://stock-tickers-api.herokuapp.com/get-tickers/industrials">Get Industrials Tickers</a></li>
+            <li><a href="https://stock-tickers-api.herokuapp.com/get-tickers/utlities">Get Utilities Tickers</a></li>
+            <li><a href="https://stock-tickers-api.herokuapp.com/get-tickers/basic-materials">Get Basic Materials Tickers</a></li>
+            <li><a href="https://stock-tickers-api.herokuapp.com/get-tickers/communication-services">Get Communication Services Tickers</a></li>
+            <li><a href="https://stock-tickers-api.herokuapp.com/get-tickers/healthcare">Get Healthcare Tickers</a></li>
+            <li><a href="https://stock-tickers-api.herokuapp.com/get-tickers/real-estate">Get Real Estate Tickers</a></li>
+            <li><a href="https://stock-tickers-api.herokuapp.com/get-tickers/consumer-defensive">Get Consumer Defensive Tickers</a></li>
+        </div>
+    </body>
+</html>

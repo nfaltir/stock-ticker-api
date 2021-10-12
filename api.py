@@ -1,6 +1,17 @@
-from fastapi import FastAPI 
+import uvicorn
+from fastapi import FastAPI, Request
+from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
+
+
 
 app = FastAPI()
+
+
+
+templates = Jinja2Templates(directory="templates")
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
 tickers = {
@@ -349,11 +360,13 @@ tickers = {
     }
 }
 
-@app.get("/")
-def index():
-    return {
-        "SP500 Sector": "API"
-        }
+#@app.get('/')
+#def hello_world():
+#    return { 'SP500': 'tickers API' }
+
+@app.get("/", response_class=HTMLResponse)
+async def read_item(request: Request):
+    return templates.TemplateResponse("home.html", {"request": request})
 
 @app.get("/sectors")
 def sectors():
