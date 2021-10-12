@@ -145,6 +145,8 @@ Heroku will need this file.<br> <i>file is both case and space sensitive, use th
 <br>
 <center>
 <button style="font-size: 30px; margin-top:50px; border-radius:5px;">
-<a style="text-decoration: none; color: steelblue" href="https://stock-tickers-api.herokuapp.com/">Live Site</a>
+<center>
+  <a style="text-decoration: none; color: steelblue; font-size: 30px;" href="https://stock-tickers-api.herokuapp.com/">Live Site</a>
+</center>
 </button>
 </center>
