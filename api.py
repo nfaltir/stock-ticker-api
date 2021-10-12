@@ -89,7 +89,7 @@ tickers = {
         "EIX","ETR","EVRG","ES","EXC","FE","NEE","NI","NRG","PNW","PPL","PEG",
         "SRE","SO","WEC","XEL"
     },
-    "realestate":{
+    "real-estate":{
        'ARE','AMT','AVB','BXP','CBRE','CCI','DLR','DRE','EQIX','EQR','ESS','EXR','FRT','PEAK',
        'HST','IRM','KIM','MAA','PLD','PSA','O','REG','SBAC','SPG','UDR','VTR','VNO','WELL','WY'
     },
