@@ -1,0 +1,49 @@
+<html>
+  <head>
+    <title>Home</title>
+    <link href="{{ url_for('static', path='/styles.css') }}" rel="stylesheet" />
+  </head>
+  <body>
+    <img src="{{ url_for('static', path='/fastapi.png') }}" alt="FastAPI" />
+    <h1>Documentation | <a href="/" class="home-nav-item">Home</a></h1>
+    <div class="box2">
+ 
+        <p class="overview">users can use the endpoints below to fetch stock tickers from the S&P500 <br>
+        users can also filter by sector, currently there are 11 sectors in the S&P 500.
+        </p>
+    </div>
+    <div class="box2">
+        <p class="example">#python code example</p>
+      <p class="code">
+            import requests <br><br>
+            url = "https://stock-tickers-api.herokuapp.com/<span id="highlight-text">sectors</span>"<br>
+            resp = requests.get(url)<br><br>
+            print(resp,"\n")<br>
+            print(resp.content)<br> 
+      </p>
+    </div>
+    <div class="box2">
+        <p class="code">
+            Endpoints
+            <ul class="endpoints">
+                <code>
+                    <li>https://stock-tickers-api.herokuapp.com/sectors</li>
+                    <li>https://stock-tickers-api.herokuapp.com/get-tickers/sp500</li>
+                    <li>https://stock-tickers-api.herokuapp.com/get-tickers/energy</li>
+                    <li>https://stock-tickers-api.herokuapp.com/get-tickers/technology</li>
+                    <li>https://stock-tickers-api.herokuapp.com/get-tickers/financials</li>
+                    <li>https://stock-tickers-api.herokuapp.com/get-tickers/consumer-cyclical</li>
+                    <li>https://stock-tickers-api.herokuapp.com/get-tickers/industrials</li>
+                    <li>https://stock-tickers-api.herokuapp.com/get-tickers/utilities</li>
+                    <li>https://stock-tickers-api.herokuapp.com/get-tickers/basic-materials</li>
+                    <li>https://stock-tickers-api.herokuapp.com/get-tickers/communication-services</li>
+                    <li>https://stock-tickers-api.herokuapp.com/get-tickers/healthcare</li>
+                    <li>https://stock-tickers-api.herokuapp.com/get-tickers/real-estate</li>
+                    <li>https://stock-tickers-api.herokuapp.com/get-tickers/consumer-defensive</li>
+                </code>
+                
+            </ul>
+        </p>
+    </div>
+  </body>
+</html>

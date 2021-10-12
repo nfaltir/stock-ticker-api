@@ -368,6 +368,10 @@ tickers = {
 async def read_item(request: Request):
     return templates.TemplateResponse("home.html", {"request": request})
 
+@app.get("/resource", response_class=HTMLResponse)
+async def read_item(request: Request):
+    return templates.TemplateResponse("docs.html", {"request": request})
+
 @app.get("/sectors")
 def sectors():
     return   {

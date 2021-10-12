@@ -5,9 +5,13 @@
     </head>
     <body>
         <img src="{{ url_for('static', path='/fastapi.png') }}" alt="FastAPI">
-        <h1>Get S&P 500 Stock Tickers</h1>
+        <h1>S&P 500 Stock Tickers { Endpoints }</h1>
+        <p><a href="/resource">Docs</a> <a href="https://github.com/nfaltir/stock-ticker-api" target="_blank">Github</a></p>
+        
+        
         <div class="box">
             <li><a href="https://stock-tickers-api.herokuapp.com/sectors">Get all Sector names</a></li>
+            <li><a href="https://stock-tickers-api.herokuapp.com/get-tickers/sp500">Get All S&P500 Tickers</a></li>
             <li><a href="https://stock-tickers-api.herokuapp.com/get-tickers/energy">Get Energy Tickers</a></li>
             <li><a href="https://stock-tickers-api.herokuapp.com/get-tickers/technology">Get Technology Tickers</a></li>
             <li><a href="https://stock-tickers-api.herokuapp.com/get-tickers/financials">Get financial Services Tickers</a></li>
