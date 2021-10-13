@@ -128,7 +128,7 @@ objective: After running app locally, Get all stock tickers from Engergy sector 
 
 
 <br><i>Output Figure</i>
-<img src="img/ex-energy.png"
+<img src="static/ex-energy.png"
      alt="example-energy"
      style="float: left; margin-right: 10px; margin-bottom: 50px;" />
 
