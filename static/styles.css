@@ -58,7 +58,7 @@ a:hover{
 
 li:hover{
     background-color: slateblue;
-    transition: 3s;
+    transition: 2s;
 }
 
 p {
@@ -68,11 +68,26 @@ p {
     font-weight: bolder;
 }
 
+.home-menu > a {
+    color: #fff;
+    
+}
+
+.home-menu > a:hover{
+    color: yellowgreen;
+}
+
 .box2{
     width: 700px;
     background-color: #232323;
     margin: auto;
     border-radius: 10px;
+}
+
+code > li:hover {
+    color: tomato;
+    background-color: #fff;
+    transition: 0s;
 }
 
 .code {
