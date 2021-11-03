@@ -3,366 +3,43 @@ from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-
-
+import pandas as pd
+import csv
 
 app = FastAPI()
 
-
+#Migrate tickers for each sector
+sp500 = pd.read_json(open('tickers/sp500.json'))[0]
+tech = pd.read_json(open('tickers/tech.json'))[0]
+utils = pd.read_json(open('tickers/utils.json'))[0]
+real_estate = pd.read_json(open('tickers/real_estate.json'))[0]
+industrials = pd.read_json(open('tickers/industrials.json'))[0]
+healthcare = pd.read_json(open('tickers/healthcare.json'))[0]
+financials = pd.read_json(open('tickers/financials.json'))[0]
+energy = pd.read_json(open('tickers/energy.json'))[0]
+consumer_defensive = pd.read_json(open('tickers/consumer_defensive.json'))[0]
+consumer_cyclical = pd.read_json(open('tickers/consumer_cyclical.json'))[0]
+basic_materials = pd.read_json(open('tickers/financials.json'))[0]
+communication_services = pd.read_json(open('tickers/communication_services.json'))[0]
+stock_sectors = pd.read_json(open('tickers/sectors.json'))[0]
 
 templates = Jinja2Templates(directory="templates")
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
-
 tickers = {
-  
-    "sp500":{
-        'MMM', 'ABT', 'ABBV', 'ABMD', 'ACN', 'ATVI', 'ADBE', 'AMD', 'AAP',
-       'AES', 'AFL', 'A', 'APD', 'AKAM', 'ALK', 'ALB', 'ARE', 'ALGN',
-       'ALLE', 'LNT', 'ALL', 'GOOGL', 'GOOG', 'MO', 'AMZN', 'AMCR', 'AEE',
-       'AAL', 'AEP', 'AXP', 'AIG', 'AMT', 'AWK', 'AMP', 'ABC', 'AME',
-       'AMGN', 'APH', 'ADI', 'ANSS', 'ANTM', 'AON', 'AOS', 'APA', 'AAPL',
-       'AMAT', 'APTV', 'ADM', 'ANET', 'AJG', 'AIZ', 'T', 'ATO', 'ADSK',
-       'ADP', 'AZO', 'AVB', 'AVY', 'BKR', 'BLL', 'BAC', 'BBWI', 'BAX',
-       'BDX', 'BRK.B', 'BBY', 'BIO', 'TECH', 'BIIB', 'BLK', 'BK', 'BA',
-       'BKNG', 'BWA', 'BXP', 'BSX', 'BMY', 'AVGO', 'BR', 'BRO', 'BF.B',
-       'CHRW', 'CTRA', 'CDNS', 'CZR', 'CPB', 'COF', 'CAH', 'KMX', 'CCL',
-       'CARR', 'CTLT', 'CAT', 'CBOE', 'CBRE', 'CDW', 'CE', 'CNC', 'CNP',
-       'CDAY', 'CERN', 'CF', 'CRL', 'SCHW', 'CHTR', 'CVX', 'CMG', 'CB',
-       'CHD', 'CI', 'CINF', 'CTAS', 'CSCO', 'C', 'CFG', 'CTXS', 'CLX',
-       'CME', 'CMS', 'KO', 'CTSH', 'CL', 'CMCSA', 'CMA', 'CAG', 'COP',
-       'ED', 'STZ', 'COO', 'CPRT', 'GLW', 'CTVA', 'COST', 'CCI', 'CSX',
-       'CMI', 'CVS', 'DHI', 'DHR', 'DRI', 'DVA', 'DE', 'DAL', 'XRAY',
-       'DVN', 'DXCM', 'FANG', 'DLR', 'DFS', 'DISCA', 'DISCK', 'DISH',
-       'DG', 'DLTR', 'D', 'DPZ', 'DOV', 'DOW', 'DTE', 'DUK', 'DRE', 'DD',
-       'DXC', 'EMN', 'ETN', 'EBAY', 'ECL', 'EIX', 'EW', 'EA', 'EMR',
-       'ENPH', 'ETR', 'EOG', 'EFX', 'EQIX', 'EQR', 'ESS', 'EL', 'ETSY',
-       'EVRG', 'ES', 'RE', 'EXC', 'EXPE', 'EXPD', 'EXR', 'XOM', 'FFIV',
-       'FB', 'FAST', 'FRT', 'FDX', 'FIS', 'FITB', 'FE', 'FRC', 'FISV',
-       'FLT', 'FMC', 'F', 'FTNT', 'FTV', 'FBHS', 'FOXA', 'FOX', 'BEN',
-       'FCX', 'GPS', 'GRMN', 'IT', 'GNRC', 'GD', 'GE', 'GIS', 'GM', 'GPC',
-       'GILD', 'GL', 'GPN', 'GS', 'GWW', 'HAL', 'HBI', 'HIG', 'HAS',
-       'HCA', 'PEAK', 'HSIC', 'HSY', 'HES', 'HPE', 'HLT', 'HOLX', 'HD',
-       'HON', 'HRL', 'HST', 'HWM', 'HPQ', 'HUM', 'HBAN', 'HII', 'IEX',
-       'IDXX', 'INFO', 'ITW', 'ILMN', 'INCY', 'IR', 'INTC', 'ICE', 'IBM',
-       'IP', 'IPG', 'IFF', 'INTU', 'ISRG', 'IVZ', 'IPGP', 'IQV', 'IRM',
-       'JKHY', 'J', 'JBHT', 'SJM', 'JNJ', 'JCI', 'JPM', 'JNPR', 'KSU',
-       'K', 'KEY', 'KEYS', 'KMB', 'KIM', 'KMI', 'KLAC', 'KHC', 'KR',
-       'LHX', 'LH', 'LRCX', 'LW', 'LVS', 'LEG', 'LDOS', 'LEN', 'LLY',
-       'LNC', 'LIN', 'LYV', 'LKQ', 'LMT', 'L', 'LOW', 'LUMN', 'LYB',
-       'MTB', 'MRO', 'MPC', 'MKTX', 'MAR', 'MMC', 'MLM', 'MAS', 'MA',
-       'MTCH', 'MKC', 'MCD', 'MCK', 'MDT', 'MRK', 'MET', 'MTD', 'MGM',
-       'MCHP', 'MU', 'MSFT', 'MAA', 'MRNA', 'MHK', 'TAP', 'MDLZ', 'MPWR',
-       'MNST', 'MCO', 'MS', 'MOS', 'MSI', 'MSCI', 'NDAQ', 'NTAP', 'NFLX',
-       'NWL', 'NEM', 'NWSA', 'NWS', 'NEE', 'NLSN', 'NKE', 'NI', 'NSC',
-       'NTRS', 'NOC', 'NLOK', 'NCLH', 'NRG', 'NUE', 'NVDA', 'NVR', 'NXPI',
-       'ORLY', 'OXY', 'ODFL', 'OMC', 'OKE', 'ORCL', 'OGN', 'OTIS', 'PCAR',
-       'PKG', 'PH', 'PAYX', 'PAYC', 'PYPL', 'PENN', 'PNR', 'PBCT', 'PEP',
-       'PKI', 'PFE', 'PM', 'PSX', 'PNW', 'PXD', 'PNC', 'POOL', 'PPG',
-       'PPL', 'PFG', 'PG', 'PGR', 'PLD', 'PRU', 'PTC', 'PEG', 'PSA',
-       'PHM', 'PVH', 'QRVO', 'PWR', 'QCOM', 'DGX', 'RL', 'RJF', 'RTX',
-       'O', 'REG', 'REGN', 'RF', 'RSG', 'RMD', 'RHI', 'ROK', 'ROL', 'ROP',
-       'ROST', 'RCL', 'SPGI', 'CRM', 'SBAC', 'SLB', 'STX', 'SEE', 'SRE',
-       'NOW', 'SHW', 'SPG', 'SWKS', 'SNA', 'SO', 'LUV', 'SWK', 'SBUX',
-       'STT', 'STE', 'SYK', 'SIVB', 'SYF', 'SNPS', 'SYY', 'TMUS', 'TROW',
-       'TTWO', 'TPR', 'TGT', 'TEL', 'TDY', 'TFX', 'TER', 'TSLA', 'TXN',
-       'TXT', 'TMO', 'TJX', 'TSCO', 'TT', 'TDG', 'TRV', 'TRMB', 'TFC',
-       'TWTR', 'TYL', 'TSN', 'UDR', 'ULTA', 'USB', 'UAA', 'UA', 'UNP',
-       'UAL', 'UNH', 'UPS', 'URI', 'UHS', 'VLO', 'VTR', 'VRSN', 'VRSK',
-       'VZ', 'VRTX', 'VFC', 'VIAC', 'VTRS', 'V', 'VNO', 'VMC', 'WRB',
-       'WAB', 'WMT', 'WBA', 'DIS', 'WM', 'WAT', 'WEC', 'WFC', 'WELL',
-       'WST', 'WDC', 'WU', 'WRK', 'WY', 'WHR', 'WMB', 'WLTW', 'WYNN',
-       'XEL', 'XLNX', 'XYL', 'YUM', 'ZBRA', 'ZBH', 'ZION', 'ZTS'
-    },
-    "technology": {
-        'ACN','ADBE','AMD','AKAM','APH','ADI','ANSS','AAPL','AMAT','ANET',
-        'ADSK','AVGO','BR','CDNS','CDW','CDAY','CSCO',
-        'CTXS','CTSH','GLW','DXC','ENPH','FFIV','FIS','FISV','FLT','FTNT',
-        'FTV','GRMN','IT','HPE','HPQ','INTC','IBM','INTU','IPGP',
-        'JKHY','JNPR','KEYS','KLAC','LRCX','LDOS','MCHP','MU',
-        'MSFT','MPWR','MSI','NTAP','NLOK','NVDA','NXPI','ORCL',
-        'PAYC','PTC','QRVO','QCOM','CRM','STX','NOW','SWKS','SNPS',
-        'TEL','TDY','TER','TXN','TRMB','TYL','VRSN','WDC','XLNX','ZBRA'
-    },
-    "utilities": {
-        "AES","LNT","AEE","AEP","AWK","ATO","CNP","CMS","ED","D","DTE","DUK",
-        "EIX","ETR","EVRG","ES","EXC","FE","NEE","NI","NRG","PNW","PPL","PEG",
-        "SRE","SO","WEC","XEL"
-    },
-    "real-estate":{
-       'ARE','AMT','AVB','BXP','CBRE','CCI','DLR','DRE','EQIX','EQR','ESS','EXR','FRT','PEAK',
-       'HST','IRM','KIM','MAA','PLD','PSA','O','REG','SBAC','SPG','UDR','VTR','VNO','WELL','WY'
-    },
-    "industrials": {
-        'MMM','ALK','ALLE','AAL','AME','AOS','ADP','AVY','BA','CHRW','CARR'
-        ,'CAT','CTAS','CPRT','CSX','CMI','DE','DAL','DOV','ETN','EMR','EFX','EXPD',
-        'FAST','FDX','GNRC','GD','GE','GPN','GWW','HON','HWM','HII','IEX'
-        ,'INFO','ITW','IR','J','JBHT','JCI','KSU','LHX','LMT','MAS','NLSN','NSC',
-        'NOC','ODFL','OTIS','PCAR','PH','PAYX','PNR','PWR','RTX','RSG','RHI','ROK',
-        'ROP','SNA','LUV','SWK','TXT','TT','TDG','UNP','UAL','UPS','URI','VRSK'
-        ,'WAB','WM','XYL'
-    },
-    "healthcare":{
-        'ABT','ABBV','ABMD','A','ALGN','ABC','AMGN','ANTM','BAX','BDX','BIO','TECH',
-        'BIIB','BSX','BMY','CAH','CTLT','CNC','CERN','CRL','CI','COO','CVS','DHR','DVA',
-        'XRAY','DXCM','EW','GILD','HCA','HSIC','HOLX','HUM','IDXX','ILMN','INCY','ISRG','IQV','JNJ',
-        'LH','LLY','MCK','MDT','MRK','MTD','MRNA','OGN','PKI','PFE','DGX','REGN','RMD','STE','SYK','TFX','TMO',
-        'UNH','UHS','VRTX','VTRS','WBA','WAT','WST','ZBH','ZTS'
-    },
-    "financials":{
-        'AFL',
-        'ALL',
-        'AXP',
-        'AIG',
-        'AMP',
-        'AON',
-        'AJG',
-        'AIZ',
-        'BAC',
-        'BLK',
-        'BK',
-        'BRO',
-        'COF',
-        'CBOE',
-        'SCHW',
-        'CB',
-        'CINF',
-        'C',
-        'CFG',
-        'CME',
-        'CMA',
-        'DFS',
-        'RE',
-        'FITB',
-        'FRC',
-        'BEN',
-        'GL',
-        'GS',
-        'HIG',
-        'HBAN',
-        'ICE',
-        'IVZ',
-        'JPM',
-        'KEY',
-        'LNC',
-        'L',
-        'MTB',
-        'MKTX',
-        'MMC',
-        'MA',
-        'MET',
-        'MCO',
-        'MS',
-        'MSCI',
-        'NDAQ',
-        'NTRS',
-        'PYPL',
-        'PBCT',
-        'PNC',
-        'PFG',
-        'PGR',
-        'PRU',
-        'RJF',
-        'RF',
-        'SPGI',
-        'STT',
-        'SIVB',
-        'SYF',
-        'TROW',
-        'TRV',
-        'TFC',
-        'USB',
-        'V',
-        'WRB',
-        'WFC',
-        'WU',
-        'WLTW',
-        'ZION'
-    },
-    "energy": {
-        'APA',
-        'BKR',
-        'COG',
-        'CVX',
-       'COP',
-        'DVN',
-        'FANG',
-        'EOG',
-        'XOM',
-        'HAL',
-        'HES',
-        'KMI',
-        'MRO',
-        'MPC',
-        'OXY',
-        'OKE',
-        'PSX',
-        'PXD',
-        'SLB',
-        'VLO',
-        'WMB'
-    },
-    "consumer-defensive":{
-        'MO',
-        'ADM',
-        'CPB',
-        'CHD',
-        'CLX',
-        'KO',
-        'CL',
-        'CAG',
-        'STZ',
-        'COST',
-        'DG',
-        'DLTR',
-        'EL',
-        'GIS',
-        'HSY',
-        'HRL',
-        'SJM',
-        'K',
-        'KMB',
-        'KHC',
-        'KR',
-        'LW',
-        'MKC',
-        'TAP',
-        'MDLZ',
-        'MNST',
-        'NWL',
-        'PEP',
-        'PM',
-        'PG',
-        'SYY',
-        'TGT',
-        'TSN',
-        'WMT'
-    },
-    "consumer-cyclical":{
-        'AAP',
-        'AMZN',
-        'AMCR',
-        'APTV',
-        'AZO',
-        'BLL',
-        'BBWI',
-        'BBY',
-        'BKNG',
-        'BWA',
-        'CZR',
-        'KMX',
-        'CCL',
-        'CMG',
-        'DHI',
-        'DRI',
-        'DPZ',
-        'EBAY',
-        'ETSY',
-        'EXPE',
-        'F',
-        'FBHS',
-        'GPS',
-        'GM',
-        'GPC',
-        'HBI',
-        'HAS',
-        'HLT',
-        'HD',
-        'IP',
-        'LVS',
-        'LEG',
-        'LEN',
-        'LKQ',
-        'LOW',
-        'MAR',
-        'MCD',
-        'MGM',
-        'MHK',
-        'NKE',
-        'NCLH',
-        'NVR',
-        'ORLY',
-        'PKG',
-        'PENN',
-        'POOL',
-        'PHM',
-        'PVH',
-        'RL',
-        'ROL',
-        'ROST',
-        'RCL',
-        'SEE',
-        'SBUX',
-        'TPR',
-        'TSLA',
-        'TJX',
-        'TSCO',
-        'ULTA',
-        'UAA',
-        'UA',
-        'VFC',
-        'WRK',
-        'WHR',
-        'WYNN',
-        'YUM'
-    },
-    "communication-services":{
-        'ATVI',
-        'GOOGL',
-        'GOOG',
-        'T',
-        'CHTR',
-        'CMCSA',
-        'DISCA',
-        'DISCK',
-        'DISH',
-        'EA',
-        'FB',
-        'FOXA',
-        'FOX',
-        'IPG',
-        'LYV',
-        'LUMN',
-        'MTCH',
-        'NFLX',
-        'NWSA',
-        'NWS',
-        'OMC',
-        'TMUS',
-        'TTWO',
-        'TWTR',
-        'VZ',
-        'VIAC',
-        'DIS'
-    },
-    "basic-materials":{
-        'APD',
-        'ALB',
-        'CE',
-        'CF',
-        'CTVA',
-        'DOW',
-        'DD',
-        'EMN',
-        'ECL',
-        'FMC',
-        'FCX',
-        'IFF',
-        'LIN',
-        'LYB',
-        'MLM',
-        'MOS',
-        'NEM',
-        'NUE',
-        'PPG',
-        'SHW',
-        'VMC'
-    }
+    "sp500":sp500,
+    "technology":tech,
+    "utilities": utils,
+    "real-estate":real_estate,
+    "industrials":industrials,
+    "healthcare":healthcare,
+    "financials":financials,
+    "energy": energy,
+    "consumer-defensive": consumer_defensive,
+    "consumer-cyclical":consumer_cyclical,
+    "communication-services":communication_services,
+    "basic-materials": basic_materials
 }
-
-#@app.get('/')
-#def hello_world():
-#    return { 'SP500': 'tickers API' }
 
 @app.get("/", response_class=HTMLResponse)
 async def read_item(request: Request):
@@ -374,22 +51,9 @@ async def read_item(request: Request):
 
 @app.get("/sectors")
 def sectors():
-    return   {
-        "sectors":{
-        'Utilities',
-        'Technology',
-        'Real-Estate',
-        'Industrials',
-        'Healthcare',
-        'Financial-Services',
-        'Energy',
-        'Consumer-Defensive',
-        'Consumer-Cyclical',
-        'Communication-Services',
-        'Basic-Materials'
-            }
-    }
+    return stock_sectors
 
 @app.get("/get-tickers/{sector_id}")
 def get_ticker(sector_id: str):
     return tickers[sector_id]
+
