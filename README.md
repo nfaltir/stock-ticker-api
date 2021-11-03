@@ -1,6 +1,6 @@
 # Python FastAPI App 
 
-version: 1.2.0.0
+version: 1.2.1.0
 <h3>Overview</h3>
 <h4>
 This is a small python application that uses the <a href="https://fastapi.tiangolo.com/">Fastapi Framework</a>. This app creates api endpoints<br> 
