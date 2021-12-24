@@ -11,7 +11,7 @@ app = FastAPI()
 #Migrate tickers for each sector
 sp500 = pd.read_json(open('tickers/sp500.json'))[0]
 tech = pd.read_json(open('tickers/tech.json'))[0]
-utils = pd.read_json(open('tickers/utils.json'))[0]
+utilities = pd.read_json(open('tickers/utils.json'))[0]
 real_estate = pd.read_json(open('tickers/real_estate.json'))[0]
 industrials = pd.read_json(open('tickers/industrials.json'))[0]
 healthcare = pd.read_json(open('tickers/healthcare.json'))[0]
@@ -29,7 +29,7 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 tickers = {
     "sp500":sp500,
     "technology":tech,
-    "utilities": utils,
+    "utilities": utilities,
     "real-estate":real_estate,
     "industrials":industrials,
     "healthcare":healthcare,
