@@ -1,8 +1,7 @@
+from contextlib import redirect_stderr
 import uvicorn
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
-from fastapi.staticfiles import StaticFiles
-from fastapi.templating import Jinja2Templates
 import pandas as pd
 import csv
 
@@ -24,8 +23,6 @@ communication_services = pd.read_json(
     open('tickers/communication_services.json'))[0]
 stock_sectors = pd.read_json(open('tickers/sectors.json'))[0]
 
-templates = Jinja2Templates(directory="templates")
-app.mount("/static", StaticFiles(directory="static"), name="static")
 
 tickers = {
     "sp500": sp500,
@@ -44,13 +41,23 @@ tickers = {
 
 
 @app.get("/", response_class=HTMLResponse)
-async def read_item(request: Request):
-    return templates.TemplateResponse("home.html", {"request": request})
-
-
-@app.get("/resource", response_class=HTMLResponse)
-async def read_item(request: Request):
-    return templates.TemplateResponse("docs.html", {"request": request})
+async def read_items():
+    return """
+    <html>
+        <head>
+            <title>Some HTML in here</title>
+            
+        </head>
+       
+        <body>
+            <div>
+                <h3>Oops Index route is not responding</h3>
+                <p>blah</p>
+                <a href="https://cash.app/bitcoin">A Story</a>
+            </div>
+        </body>
+    </html>
+    """
 
 
 @app.get("/sectors")
@@ -58,6 +65,6 @@ def sectors():
     return stock_sectors
 
 
-@app.get("/get-tickers/{sector_id}")
+@app.get("/{sector_id}")
 def get_ticker(sector_id: str):
     return tickers[sector_id]
