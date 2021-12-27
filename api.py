@@ -40,24 +40,9 @@ tickers = {
 }
 
 
-@app.get("/", response_class=HTMLResponse)
-async def read_items():
-    return """
-    <html>
-        <head>
-            <title>Some HTML in here</title>
-            
-        </head>
-       
-        <body>
-            <div>
-                <h3>Oops Index route is not responding</h3>
-                <p>blah</p>
-                <a href="https://cash.app/bitcoin">A Story</a>
-            </div>
-        </body>
-    </html>
-    """
+@app.get("/")
+def index():
+    return {"See Docs": "/docs"}
 
 
 @app.get("/sectors")
